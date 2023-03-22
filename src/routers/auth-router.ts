@@ -11,6 +11,7 @@ import {usersService} from "../domain/users-service";
 import {jwtService} from "../application/jwt-service";
 import {authBearerMiddleware} from "../middlewares/authToken";
 import {authService} from "../domain/auth-service";
+import {checkLoginEmailIsExist} from "../middlewares/checkLoginEmailIsExist";
 
 
 export const authRouter = Router({})
@@ -68,19 +69,18 @@ authRouter
     passwordValidation,
     emailValidation,
     inputValidationMiddleware,
+        checkLoginEmailIsExist,
     async (req:Request, res: Response) => {
 
-        let checkUserInDb = await usersRepository.checkUser(req.body.login, req.body.email)
+        //let checkUserInDb = await usersRepository.checkUser(req.body.login, req.body.email)
 
-        if (!checkUserInDb) {
+        /*if (!checkUserInDb) {*/
             const newUser = await authService.createUser(req.body.login, req.body.email, req.body.password)
-            res.status(201).send(newUser)
-
-            // TODO поставить 204 статус
-
-        } else {
-            return res.send(400)
+            res.status(204).send(newUser)
+        if (!newUser) {
+            res.sendStatus(400).json({ message: "Something went wrong with creating"})
         }
+
     })
 
     .post("/registration-confirmation",
