@@ -14,14 +14,17 @@ export const emailsManager = {
                 pass: myPass, // generated ethereal password
             },
         });
+const your_confirmation_code = newUser.emailConfirmation.confirmationCode
 
 // send mail with defined transport object
         let info = await transporter.sendMail({
             from: "AnnaTestEmail",  // sender address
             to: newUser.accountData.email, // list of receivers
             subject: "Confirmation Message1", // Subject line
-            html: newUser.emailConfirmation.confirmationCode, // html body
-        });
+            html: " <h1>Thank for your registration</h1> " +
+                " <p>To finish registration please follow the link below: </p> " +
+                " https://somesite.com/confirm-email?code=" + your_confirmation_code})
+        // html body
 
         return info
 

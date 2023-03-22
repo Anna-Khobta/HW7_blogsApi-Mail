@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import add from 'date-fns/add'
 import {emailsManager} from "../managers/emails-manager";
 import {SentMessageInfo} from "nodemailer";
-import {usersService} from "./users-service";
 
 
 
