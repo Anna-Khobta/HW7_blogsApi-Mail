@@ -10,6 +10,7 @@ import {usersRouter} from "./routers/users-router";
 
 import {authRouter} from "./routers/auth-router";
 import {commentsRouter} from "./routers/comments-router";
+import {emailRouter} from "./routers/email-router";
 
 
 
@@ -30,6 +31,7 @@ app.use('/users', usersRouter)
 app.use('/auth', authRouter)
 app.use('/posts', postsRouter)
 app.use('/comments', commentsRouter)
+app.use('/', emailRouter)
 
 
 

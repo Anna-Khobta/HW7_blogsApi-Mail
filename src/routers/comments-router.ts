@@ -3,9 +3,7 @@ import {Request, Response, Router} from "express";
 import {commentsService} from "../domain/comments-service";
 import {contentCommentValidation} from "../middlewares/comments-validation";
 import {inputValidationMiddleware} from "../middlewares/input-validation-middleware";
-import {commentsRepositories} from "../repositories/comments-db-repositories";
 import {commentsQueryRepositories} from "../repositories/comments-query-repositories";
-import {postsService} from "../domain/posts-service";
 
 
 export const commentsRouter = Router()
