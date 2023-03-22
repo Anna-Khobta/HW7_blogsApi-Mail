@@ -6,10 +6,7 @@ export const emailAdapter = {
 // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             service: "gmail",
-            auth: {
-                user: "menthol.vegan@gmail.com", // generated ethereal user
-                pass: "lxaefvxolgncwqbd", // generated ethereal password
-            },
+            auth: process.env.EMAIl,
         });
 
 // send mail with defined transport object
