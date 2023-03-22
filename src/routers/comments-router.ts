@@ -18,7 +18,6 @@ commentsRouter
         async (req: Request, res:Response) => {
 
 
-
             const userInfo = req.user
 
             const checkUserOwnComment = await commentsService.checkUser(userInfo!, req.params.id)
@@ -66,7 +65,6 @@ commentsRouter
 
                 const checkUserOwnComment = await commentsService.checkUser(userInfo!, req.params.id)
 
-                //console.log(checkUserOwnComment)
 
                 if (checkUserOwnComment) {
 

@@ -17,6 +17,7 @@ export const usersRouter = Router({})
 
 
 
+// get users with filter and pagination
 usersRouter.get('/',
     authorizationMiddleware,
     async (req: Request, res: Response) => {
@@ -45,7 +46,6 @@ usersRouter.post('/',
 
         } else {
             return res.send(400)
-            // тут по идее надо сделать middleware на проверку
         }
     })
 

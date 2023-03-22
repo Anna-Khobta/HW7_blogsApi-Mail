@@ -7,9 +7,11 @@
     "@types/jest": "^29.4.2",
     "@types/nodemailer": "^6.4.7",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.1",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
+    "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-basic-auth": "^1.2.1",
@@ -19,7 +21,8 @@
     "mongodb": "^5.0.1",
     "nodemailer": "^6.9.1",
     "supertest": "^6.3.3",
-    "ts-jest": "^29.0.5"
+    "ts-jest": "^29.0.5",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "watch": "tsc -w",

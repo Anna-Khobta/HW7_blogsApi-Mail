@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken'
-import {UserType} from "../repositories/types";
+import {UserDbType} from "../repositories/types";
 import {settings} from "../settings";
-import {ObjectId} from "mongodb";
 
 
 export const jwtService = {
-    async createJwtToken(foundUserInDb: UserType) {
+    async createJwtToken(foundUserInDb: UserDbType) {
 
 /*        const payload = {
             id: foundUserInDb.id,

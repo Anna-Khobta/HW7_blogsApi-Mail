@@ -1,5 +1,5 @@
 import {MongoClient} from "mongodb";
-import {BlogType, CommentDBType, PostType, UserType} from "./types";
+import {BlogType, CommentDBType, PostType, UserDbType} from "./types";
 
 
 const mongoUri = process.env.MONGO_URL
@@ -13,7 +13,12 @@ const client = new MongoClient(mongoUri)
 const db = client.db(); // const db = client.db("BlogsApi")
 export const blogsCollection = db.collection<BlogType>("Blogs");
 export const postsCollection = db.collection<PostType>("Posts");
-export const usersCollection = db.collection<UserType>("Users");
+
+export const usersCollection = db.collection<UserDbType>("Users");
+
+//export const authCollection = db.collection<UserDbType>("Users");
+
+
 
 export const commentsCollection = db.collection<CommentDBType>("Comments")
 

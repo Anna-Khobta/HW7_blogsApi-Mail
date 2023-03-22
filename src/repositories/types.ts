@@ -1,3 +1,7 @@
+import {v4 as uuidv4} from "uuid";
+import add from "date-fns/add";
+import {isBooleanObject} from "util/types";
+
 export type BlogType = {
     id: string,
     name: string,
@@ -16,14 +20,6 @@ export type PostType = {
     blogName: string,
     createdAt: string,
 
-}
-
-export type UserType = {
-    id: string,
-    login: string,
-    email: string,
-    password: string,
-    createdAt: string
 }
 
 export type CommentDBType = {
@@ -47,9 +43,31 @@ export type CommentViewType = {
     createdAt: string
 }
 
+export type UserViewWhenAdd = {
+    id: string,
+    login: string,
+    email: string,
+    createdAt: string
+}
 
 export type UserTypeAuthMe = {
     email: string,
     login: string,
     userId: string
 }
+
+export type UserDbType = {
+    id: string,
+    accountData: {
+        login: string,
+        email: string,
+        password: string,
+        createdAt: string
+    },
+    emailConfirmation: {
+        confirmationCode: string,
+        expirationDate: Date,
+        isConfirmed: boolean
+    }
+}
+

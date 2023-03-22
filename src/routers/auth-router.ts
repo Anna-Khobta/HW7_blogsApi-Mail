@@ -1,10 +1,16 @@
-import {loginOrEmailValidation, passwordValidation} from "../middlewares/authentication";
+import {
+    emailValidation,
+    loginOrEmailValidation,
+    loginValidation,
+    passwordValidation
+} from "../middlewares/authentication";
 import {inputValidationMiddleware} from "../middlewares/input-validation-middleware";
 import {Request, Response, Router} from "express";
 import {usersRepository} from "../repositories/users-db-repositories";
 import {usersService} from "../domain/users-service";
 import {jwtService} from "../application/jwt-service";
 import {authBearerMiddleware} from "../middlewares/authToken";
+import {authService} from "../domain/auth-service";
 
 
 export const authRouter = Router({})
@@ -48,8 +54,57 @@ authRouter.get("/me",
 
         res.status(200).send({
             userId: meUser?.id,
-            login: meUser?.login,
-            email: meUser?.email
+            login: meUser?.accountData.login,
+            email: meUser?.accountData.email
         })
 
 })
+
+
+// Registration in the system. Email with confirmation code will be send to passed email address
+authRouter
+    .post("/registration",
+    loginValidation,
+    passwordValidation,
+    emailValidation,
+    inputValidationMiddleware,
+    async (req:Request, res: Response) => {
+
+        let checkUserInDb = await usersRepository.checkUser(req.body.login, req.body.email)
+
+        if (!checkUserInDb) {
+            const newUser = await authService.createUser(req.body.login, req.body.email, req.body.password)
+            res.status(201).send(newUser)
+
+            // TODO поставить 204 статус
+
+        } else {
+            return res.send(400)
+        }
+    })
+
+    .post("/registration-confirmation",
+        async (req:Request, res: Response) => {
+        const result = await authService.confirmEmail(req.body.code)
+            if (result) {
+                res.sendStatus(204)
+            } else {
+                res.sendStatus(400)
+            }
+        })
+
+
+.post("/registration-email-resending",
+    emailValidation,
+    inputValidationMiddleware,
+    async (req:Request, res: Response) => {
+
+        const result = await authService.checkEmail(req.body.email)
+        if (result) {
+            res.sendStatus(204)
+        } else {
+            res.sendStatus(400)
+        }
+})
+
+
