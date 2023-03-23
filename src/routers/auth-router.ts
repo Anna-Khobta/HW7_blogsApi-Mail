@@ -77,7 +77,7 @@ authRouter
 
         /*if (!checkUserInDb) {*/
             const newUser = await authService.createUser(req.body.login, req.body.email, req.body.password)
-            res.status(200).send({ message: "Input data is accepted. Email with confirmation code will be send to passed email address"})
+            res.sendStatus(204)
         if (!newUser) {
             res.sendStatus(400).json({ message: "Something went wrong with creating"})
         }
