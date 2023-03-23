@@ -11,7 +11,7 @@ import {usersService} from "../domain/users-service";
 import {jwtService} from "../application/jwt-service";
 import {authBearerMiddleware} from "../middlewares/authToken";
 import {authService} from "../domain/auth-service";
-import {checkLoginEmailIsExist} from "../middlewares/checkLoginEmailIsExist";
+import {checkLoginEmailExist} from "../middlewares/checkLoginEmailIsExist";
 
 
 export const authRouter = Router({})
@@ -65,18 +65,19 @@ authRouter.get("/me",
 // Registration in the system. Email with confirmation code will be send to passed email address
 authRouter
     .post("/registration",
-    loginValidation,
+ /*   loginValidation,
     passwordValidation,
-    emailValidation,
+    emailValidation,*/
+        checkLoginEmailExist,
     inputValidationMiddleware,
-        checkLoginEmailIsExist,
+
     async (req:Request, res: Response) => {
 
         //let checkUserInDb = await usersRepository.checkUser(req.body.login, req.body.email)
 
         /*if (!checkUserInDb) {*/
             const newUser = await authService.createUser(req.body.login, req.body.email, req.body.password)
-            res.status(204).send(newUser)
+            res.status(204).json({ message: "Input data is accepted. Email with confirmation code will be send to passed email address"})
         if (!newUser) {
             res.sendStatus(400).json({ message: "Something went wrong with creating"})
         }
