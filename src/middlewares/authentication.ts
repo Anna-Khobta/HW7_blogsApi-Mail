@@ -1,5 +1,5 @@
 import {body} from "express-validator";
-import {checkEmailExist, checkEmailInbase, checkLoginExist} from "../functions/checkLoginEmailIsExist";
+import {checkCodeInbase, checkEmailExist, checkEmailInbase, checkLoginExist} from "../functions/checkLoginEmailIsExist";
 
 export const loginValidation = body("login")
     .trim().not().isEmpty().withMessage("The login is empty")
@@ -29,5 +29,8 @@ export const emailValidationSimple = body("email")
 
 export const checkUserEmailInbase = body("email")
     .custom( (value)=> { return checkEmailInbase(value)})
+
+export const checkCodeInDb= body("code")
+    .custom( (value)=> { return checkCodeInbase(value)})
 
 

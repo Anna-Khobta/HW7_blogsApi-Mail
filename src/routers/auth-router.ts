@@ -1,4 +1,5 @@
 import {
+    checkCodeInDb,
     checkUserEmailInbase,
     emailValidation, emailValidationSimple,
     loginOrEmailValidation,
@@ -83,12 +84,14 @@ authRouter
     })
 
     .post("/registration-confirmation",
+        checkCodeInDb,
+        inputValidationMiddleware,
         async (req:Request, res: Response) => {
         const result = await authService.confirmEmail(req.body.code)
             if (result) {
                 res.sendStatus(204)
             } else {
-                res.send(400).json({ errorsMessages: [{ message: "Incorrect code", field: "code" }] })
+                res.sendStatus(400).json({ errorsMessages: [{ message: "Some problems with code", field: "code" }] })
             }
         })
 

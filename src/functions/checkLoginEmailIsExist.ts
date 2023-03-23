@@ -30,3 +30,14 @@ export const checkLoginExist = async (login: string) => {
     }
 
 };
+
+
+export const checkCodeInbase = async (code: string) => {
+
+    const user = await usersRepository.checkUserByCode(code);
+
+    if (!user) {
+        return Promise.reject("This code wasn't registration in our app");
+    }
+
+};
