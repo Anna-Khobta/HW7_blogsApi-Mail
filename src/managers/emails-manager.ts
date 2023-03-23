@@ -24,16 +24,17 @@ const confirmationCode = newUser.emailConfirmation.confirmationCode
     <p><a href='${confirmationCode}'>Complete registration</a></p>
 `;
 
+        const html2 = `<h1>Thank you for registration!</h1><p>To finish registration process please follow the link below:<a href="https://somesite.com/confirm-email?code=${confirmationCode}">complete registration</a></p>`
+
 
 // send mail with defined transport object
         let info = await transporter.sendMail({
             from: "AnnaTestEmail",  // sender address
             to: newUser.accountData.email, // list of receivers
             subject: "Confirmation Message1", // Subject line
-            html: html })
+            html: html2 })
         // html body
 
         return info
-
     }
 }
