@@ -11,7 +11,6 @@ import {usersService} from "../domain/users-service";
 import {jwtService} from "../application/jwt-service";
 import {authBearerMiddleware} from "../middlewares/authToken";
 import {authService} from "../domain/auth-service";
-import {checkLoginEmailExist} from "../middlewares/checkLoginEmailIsExist";
 
 
 export const authRouter = Router({})
@@ -68,7 +67,6 @@ authRouter
     loginValidation,
     passwordValidation,
     emailValidation,
-        checkLoginEmailExist,
     inputValidationMiddleware,
 
     async (req:Request, res: Response) => {

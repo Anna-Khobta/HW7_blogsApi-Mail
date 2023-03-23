@@ -18,6 +18,30 @@ export const usersRepository = {
 
     },
 
+    async checkUserByEmail(email: string): Promise<UserDbType | null> {
+
+        let foundUser = await usersCollection.findOne({"accountData.email": email})
+
+        if (foundUser) {
+            return foundUser
+        } else {
+            return null
+        }
+
+    },
+
+    async checkUserByLogin(login: string): Promise<UserDbType | null> {
+
+        let foundUser = await usersCollection.findOne({"accountData.login": login})
+
+        if (foundUser) {
+            return foundUser
+        } else {
+            return null
+        }
+
+    },
+
     async checkUserLoginOrEmail(loginOrEmail: string): Promise<UserDbType | null> {
 
         let foundUser = await usersCollection.findOne({$or: [{"accountData.login": loginOrEmail}, {"accountData.email": loginOrEmail}]})

@@ -1,9 +1,11 @@
 import {body} from "express-validator";
+import {checkEmailExist, checkLoginExist} from "../functions/checkLoginEmailIsExist";
 
 export const loginValidation = body("login")
     .trim().not().isEmpty().withMessage("The login is empty")
     .isLength({min:3, max:10}).withMessage("The length should be minimum 3, maximum 10")
     .matches(/^[a-zA-Z0-9_-]*$/)
+    .custom( (value)=> { return checkLoginExist(value)})
 
 export const passwordValidation = body("password")
     .trim().not().isEmpty().withMessage("The password is empty")
@@ -12,6 +14,7 @@ export const passwordValidation = body("password")
 export const emailValidation = body("email")
     .trim().not().isEmpty().withMessage("The email is empty")
     .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    .custom( (value)=> { return checkEmailExist(value)})
 
 // .isEmail()
 

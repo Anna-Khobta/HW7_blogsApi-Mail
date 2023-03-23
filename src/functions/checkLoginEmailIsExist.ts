@@ -1,12 +1,27 @@
 
-import {NextFunction, Request, Response} from "express";
 import {usersRepository} from "../repositories/users-db-repositories";
 
-const { body } = require('express-validator')
-const { check } = require('express-validator');
+export const checkEmailExist = async (email: string) => {
 
-// подвисает где-то на этом шаге и не идет далее
+    const user = await usersRepository.checkUserByEmail(email);
+
+    if (user) {
+        return Promise.reject({ errorsMessages: [{ message: "User with that email already exists", field: "email" }] });
+    }
+
+};
+
+export const checkLoginExist = async (login: string) => {
+
+    const user = await usersRepository.checkUserByLogin(login);
+
+    if (user) {
+        return Promise.reject({ errorsMessages: [{ message: "User with that login already exists", field: "login" }] });
+    }
+
+};
 /*
+
 export const checkLoginEmailExist = () => {
     return Promise.all([
         check('login')
@@ -23,18 +38,21 @@ export const checkLoginEmailExist = () => {
                 return true
             })
     ]);
-};*/
-
-/*
-export const checkLoginEmailExist = async (req: Request, res:Response, next:NextFunction) => {
-    const user = await usersRepository.checkUser(req.body.login, req.body.email);
-    if (user) {
-        throw new Error('User with that login or email already exists');
-    }
-    return true;
+};
 */
 
 
+
+// export const checkLoginEmailExist = async (req: Request, res:Response, next:NextFunction) => {
+//     const user = await usersRepository.checkUser(req.body.login, req.body.email);
+//     if (user) {
+//         throw new Error('User with that login or email already exists');
+//     }
+//     return true;
+
+
+
+/*
 
 export const checkLoginEmailExist = async (req: Request, res:Response, next:NextFunction) => {
 
@@ -51,5 +69,6 @@ export const checkLoginEmailExist = async (req: Request, res:Response, next:Next
     }
 }
 
+*/
 
 
