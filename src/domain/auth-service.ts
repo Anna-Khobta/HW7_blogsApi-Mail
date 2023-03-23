@@ -62,7 +62,7 @@ export const authService= {
         if (!foundUserByEmail) return false
         if (foundUserByEmail.emailConfirmation.isConfirmed === false) {
 
-            const result = await emailsManager.sendEmailConfirmationMessage(foundUserByEmail!)
+            const result = await emailsManager.resendEmailConfirmationMessage(foundUserByEmail!)
 
             return true
         }

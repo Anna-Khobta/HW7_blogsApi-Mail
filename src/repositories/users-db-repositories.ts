@@ -147,4 +147,12 @@ export const usersRepository = {
 
         return foundUser || null
     },
+
+    async updateConfirmationCode (id: string, generateConfirmationCode:string, generateExpirationDate: Date): Promise<boolean> {
+        let result = await usersCollection.updateOne({id: id},
+            {$set: {
+                "emailConfirmation.confirmationCode": generateConfirmationCode,
+                    "emailConfirmation.expirationDate": generateExpirationDate}})
+        return result.modifiedCount === 1
+    }
 }
