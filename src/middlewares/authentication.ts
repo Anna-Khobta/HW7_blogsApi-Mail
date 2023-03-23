@@ -1,5 +1,5 @@
 import {body} from "express-validator";
-import {checkEmailExist, checkLoginExist} from "../functions/checkLoginEmailIsExist";
+import {checkEmailExist, checkEmailInbase, checkLoginExist} from "../functions/checkLoginEmailIsExist";
 
 export const loginValidation = body("login")
     .trim().not().isEmpty().withMessage("The login is empty")
@@ -21,5 +21,13 @@ export const emailValidation = body("email")
 export const loginOrEmailValidation = body("loginOrEmail")
     .trim().not().isEmpty().withMessage("The loginOrEmail is empty")
     .isLength({min:3, max:50}).withMessage("Error in length")
+
+export const emailValidationSimple = body("email")
+    .trim().not().isEmpty().withMessage("The email is empty")
+    .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+
+
+export const checkUserEmailInbase = body("email")
+    .custom( (value)=> { return checkEmailInbase(value)})
 
 

@@ -1,5 +1,6 @@
 import {
-    emailValidation,
+    checkUserEmailInbase,
+    emailValidation, emailValidationSimple,
     loginOrEmailValidation,
     loginValidation,
     passwordValidation
@@ -88,13 +89,14 @@ authRouter
             if (result) {
                 res.sendStatus(204)
             } else {
-                res.sendStatus(400)
+                res.send(400).json({ errorsMessages: [{ message: "Incorrect code", field: "code" }] })
             }
         })
 
 
 .post("/registration-email-resending",
-    emailValidation,
+    emailValidationSimple,
+    checkUserEmailInbase,
     inputValidationMiddleware,
     async (req:Request, res: Response) => {
 
@@ -102,7 +104,7 @@ authRouter
         if (result) {
             res.sendStatus(204)
         } else {
-            res.sendStatus(400)
+            res.send(400).json({ errorsMessages: [{ message: "We haven't found your email in base", field: "email" }] })
         }
 })
 

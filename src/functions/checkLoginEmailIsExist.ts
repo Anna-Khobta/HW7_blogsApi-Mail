@@ -11,6 +11,16 @@ export const checkEmailExist = async (email: string) => {
 
 };
 
+export const checkEmailInbase = async (email: string) => {
+
+    const user = await usersRepository.checkUserByEmail(email);
+
+    if (!user) {
+        return Promise.reject("This email wasn't registration in our app");
+    }
+
+};
+
 export const checkLoginExist = async (login: string) => {
 
     const user = await usersRepository.checkUserByLogin(login);
