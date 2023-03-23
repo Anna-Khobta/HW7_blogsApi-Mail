@@ -78,7 +78,7 @@ authRouter
             const newUser = await authService.createUser(req.body.login, req.body.email, req.body.password)
             res.sendStatus(204)
         if (!newUser) {
-            res.sendStatus(400).json({ message: "Something went wrong with creating"})
+            res.status(400).json({ message: "Something went wrong with creating"})
         }
 
     })
@@ -91,7 +91,7 @@ authRouter
             if (result) {
                 res.sendStatus(204)
             } else {
-                res.sendStatus(400).json({ errorsMessages: [{ message: "Some problems with code", field: "code" }] })
+                res.status(400).json({ errorsMessages: [{ message: "Incorrect code or it was already used", field: "code" }] })
             }
         })
 
@@ -106,7 +106,7 @@ authRouter
         if (result) {
             res.sendStatus(204)
         } else {
-            res.send(400).json({ errorsMessages: [{ message: "We haven't found your email in base", field: "email" }] })
+            res.status(400).json({ errorsMessages: [{ message: "Your email was already confirmed", field: "email" }] })
         }
 })
 
