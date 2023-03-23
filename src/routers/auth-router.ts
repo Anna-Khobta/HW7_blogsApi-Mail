@@ -13,7 +13,6 @@ import {jwtService} from "../application/jwt-service";
 import {authBearerMiddleware} from "../middlewares/authToken";
 import {authService} from "../domain/auth-service";
 
-
 export const authRouter = Router({})
 
 authRouter.post("/login",
