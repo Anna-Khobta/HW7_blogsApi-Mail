@@ -65,9 +65,9 @@ authRouter.get("/me",
 // Registration in the system. Email with confirmation code will be send to passed email address
 authRouter
     .post("/registration",
- /*   loginValidation,
+    loginValidation,
     passwordValidation,
-    emailValidation,*/
+    emailValidation,
         checkLoginEmailExist,
     inputValidationMiddleware,
 
